@@ -4,9 +4,7 @@
 
 #include <vector>
 
-using namespace std;
-
-vector<vector<double> > MatrixMul(vector<vector<double> > A, double B) {
+std::vector<std::vector<double> > MatrixMul(std::vector<std::vector<double> > A, double B) {
 	for (int i = 0; i < A.size(); i++) {
 		for (int k = 0; k < A[0].size(); k++) {
 			A[i][k] *= B;
@@ -15,13 +13,13 @@ vector<vector<double> > MatrixMul(vector<vector<double> > A, double B) {
 	return A;
 }
 
-vector<vector<double> > MatrixMul(vector<vector<double> > A, vector<vector<double> > B) {
-	vector<vector<double> > result;
+std::vector<std::vector<double> > MatrixMul(std::vector<std::vector<double> > A, std::vector<std::vector<double> > B) {
+	std::vector<std::vector<double> > result;
 	if (A[0].size() != B.size()) {
 		throw 1;
 	}
 	for (int i = 0; i < A.size(); i++) {
-		vector<double> temp;
+		std::vector<double> temp;
 		for (int k = 0; k < B[0].size(); k++) {
 			double x = 0;
 			for (int j = 0; j < A[0].size(); j++) {
@@ -33,8 +31,8 @@ vector<vector<double> > MatrixMul(vector<vector<double> > A, vector<vector<doubl
 	}
 	return result;
 }
-vector<vector<double> > MatrixSub(vector<vector<double> > A, vector<vector<double> > B) {
-	vector<vector<double> > result;
+std::vector<std::vector<double> > MatrixSub(std::vector<std::vector<double> > A, std::vector<std::vector<double> > B) {
+	std::vector<std::vector<double> > result;
 	// Checking if size is correct
 	if (A.size() != B.size() || A[0].size() != B[0].size()) {
 		throw 1;
@@ -42,7 +40,7 @@ vector<vector<double> > MatrixSub(vector<vector<double> > A, vector<vector<doubl
 
 	for (int i = 0; i < A.size(); i++) {
 		for (int k = 0; k < A[0].size(); k++) {
-			vector<double> temp;
+			std::vector<double> temp;
 			temp.push_back(A[i][k] - B[i][k]);
 			result.push_back(temp);
 		}
@@ -51,8 +49,8 @@ vector<vector<double> > MatrixSub(vector<vector<double> > A, vector<vector<doubl
 }
 
 
-vector<vector<double> > MatrixAdd(vector<vector<double> > A, vector<vector<double> > B) {
-	vector<vector<double> > result;
+std::vector<std::vector<double> > MatrixAdd(std::vector<std::vector<double> > A, std::vector<std::vector<double> > B) {
+	std::vector<std::vector<double> > result;
 	// Checking if size is correct
 	if (A.size() != B.size() || A[0].size() != B[0].size()) {
 		throw 1;
@@ -60,7 +58,7 @@ vector<vector<double> > MatrixAdd(vector<vector<double> > A, vector<vector<doubl
 
 	for (int i = 0; i < A.size(); i++) {
 		for (int k = 0; k < A[0].size(); k++) {
-			vector<double> temp;
+			std::vector<double> temp;
 			temp.push_back(A[i][k] + B[i][k]);
 			result.push_back(temp);
 		}
@@ -68,13 +66,13 @@ vector<vector<double> > MatrixAdd(vector<vector<double> > A, vector<vector<doubl
 	return result;
 }
 
-vector<vector<double> > MatrixTranspose(vector<vector<double> > A) {
-	vector<vector<double> > result;
+std::vector<std::vector<double> > MatrixTranspose(std::vector<std::vector<double> > A) {
+	std::vector<std::vector<double> > result;
 	double size1 = A[0].size();
 	double size2 = A.size();
 
 	for (int i = 0; i < size1; i++) {
-		vector<double> temp;
+		std::vector<double> temp;
 		for (int k = 0; k < size2; k++) {
 			temp.push_back(A[k][i]);
 		}
@@ -83,8 +81,8 @@ vector<vector<double> > MatrixTranspose(vector<vector<double> > A) {
 	return result;
 }
 
-vector<double> MatrixEqual(vector<vector<double> > A, vector<vector<double> > B) {
-	vector<double> result;
+std::vector<double> MatrixEqual(std::vector<std::vector<double> > A, std::vector<std::vector<double> > B) {
+	std::vector<double> result;
 
 	// Checking if size is correct
 	if (A.size() != B.size() || A[0].size() != B[0].size()) {
@@ -103,8 +101,8 @@ vector<double> MatrixEqual(vector<vector<double> > A, vector<vector<double> > B)
 	return result;
 }
 
-vector<double> MatrixNotEqual(vector<vector<double> > A, vector<vector<double> > B) {
-	vector<double> result;
+std::vector<double> MatrixNotEqual(std::vector<std::vector<double> > A, std::vector<std::vector<double> > B) {
+	std::vector<double> result;
 
 	// Checking if size is correct
 	if (A.size() != B.size() || A[0].size() != B[0].size()) {
@@ -124,7 +122,7 @@ vector<double> MatrixNotEqual(vector<vector<double> > A, vector<vector<double> >
 }
 
 
-double MatrixSum(vector<double> A) {
+double MatrixSum(std::vector<double> A) {
 	double result = 0;
 
 	for (double x : A){
