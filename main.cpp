@@ -7,8 +7,7 @@
 #include <random>
 #include <math.h>
 #include <map>
-//#include "gnuplot-iostream.h"
-#include <boost/tuple/tuple.hpp>
+#include "gnuplot_i.hpp"
 
 using namespace std;
 
@@ -179,9 +178,12 @@ int main() {
 
 	vector<vector<double> > data;
 	vector<string> labels;
+	int epochs = 100;
+	double eta = 0.0001;
 
 //	Loading data
-	load_data("../data/iris.txt", data, labels, "Iris-setosa");
+	load_data("../data/iris.txt", data, labels, "Iris-virginica");
+
 //	Converting string labels into -1 and 1
 	vector<vector<double> > convertedLabels = convertLabels(labels);
 
@@ -194,36 +196,32 @@ int main() {
 	train_test_split(data, convertedLabels, X_train, X_test, y_train, y_test, 0.2);
 
 //	Train perceptron
-	Perceptron perceptron(0.0001, 1000);
+	Perceptron perceptron(eta, epochs);
 	perceptron.fit(X_train, y_train);
 
 	vector<vector<double> > predictions;
 	predictions = perceptron.predict(X_test);
 
-	for (int i = 0; i < predictions.size(); i++) {
-		for (int k = 0; k < predictions[0].size(); k++) {
-			cout << predictions[i][k] << " ";
-		}
-		cout << y_test[i][0] << endl;
-	}
-
-	for (double x : perceptron.errors){
-		cout << x << "   ";
-	}
+//	for (int i = 0; i < predictions.size(); i++) {
+//		for (int k = 0; k < predictions[0].size(); k++) {
+//			cout << predictions[i][k] << " ";
+//		}
+//		cout << y_test[i][0] << endl;
+//	}
+//	for (double x : perceptron.errors){
+//		cout << x << "   ";
+//	}
 	cout << endl;
 	cout << "Dokładność perceptronu to: " << perceptron.score(predictions, y_test) * 100 << " %"<< endl;
 
-//	vector<vector<double> > results;
-//	vector<double> epochs;
-//	for (int i = 1; i <= 100; i++){
-//		epochs.push_back(i);
-//	}
-//
-//	results.push_back(epochs);
-//	results.push_back(perceptron.errors);
 
-//	Gnuplot gp;
-//	gp.send1d(results);
+	Gnuplot gp("lines");
+	gp.set_terminal_std("pngcairo");
+	gp.plot_x(perceptron.errors, "Error");
+	gp.set_xrange(1, epochs);
+	gp.set_xlabel("Epochs");
+	gp.set_ylabel("Number of errors");
+
 
 	return 0;
 }
