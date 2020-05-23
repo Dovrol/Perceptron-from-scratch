@@ -33,8 +33,22 @@ int main() {
 	Perceptron perceptron(ETA, EPOCHS);
 	perceptron.fit(X_train, y_train);
 
-//	vector<vector<double> > predictions;
-//	predictions = perceptron.predict(X_test);
+	vector<vector<double> > predictions;
+	predictions = perceptron.predict(X_test);
+
+	cout << "Orginal labels:     ";
+	for (auto & i : y_test){
+		cout << i[0];
+		if (i[0] == 1) cout << "  | ";
+		else cout << " | ";
+	}
+	cout << endl << "Predicted labels:   ";
+	for (auto & prediction : predictions){
+		cout << prediction[0];
+		if (prediction[0] == 1) cout << "  | ";
+		else cout << " | ";
+	}
+
 
 	cout << endl;
 	cout << "Dokładność perceptronu na zbiorze testowym to: " << perceptron.score(X_test, y_test) * 100 << " %" << endl;
@@ -44,10 +58,11 @@ int main() {
 
 	Gnuplot gp("lines");
 	gp.set_terminal_std("pngcairo");
-	gp.plot_x(perceptron.errors, "Error");
-	gp.set_xrange(1, EPOCHS);
+	gp.set_title("Perceptron errors");
 	gp.set_xlabel("Epochs");
 	gp.set_ylabel("Number of errors");
+	gp.plot_x(perceptron.errors, "Error");
+	gp.set_xrange(1, EPOCHS);
 
 
 	return 0;

@@ -91,6 +91,5 @@ void Perceptron::addBias(vector<vector<double> > &X) {
 }
 
 double Perceptron::score(vector<vector<double> > X, vector<vector<double> > y) {
-
 	return MatrixSum(MatrixEqual(predict(X), y)) / y.size();
 }
