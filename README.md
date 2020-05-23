@@ -6,10 +6,7 @@ Requirements:
 - Gnuplot (apt-get install gnuplot(linux), brew install gnuplot (mac))
 
 
-
-
-Start:
-  Run startScript by "./startScript"
+#### Run program by: ./startProgram
 
 
 ### Example plot
