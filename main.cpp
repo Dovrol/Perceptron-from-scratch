@@ -62,8 +62,7 @@ int main() {
 	gp.set_xlabel("Epochs");
 	gp.set_ylabel("Number of errors");
 	gp.plot_x(perceptron.errors, "Error");
-	gp.set_xrange(1, EPOCHS);
-
+	gp.set_xrange(1, perceptron.get_epochs() + 1);
 
 	return 0;
 }

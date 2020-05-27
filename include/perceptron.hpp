@@ -24,6 +24,8 @@ public:
 
 	double score(vector<vector<double> > X, vector<vector<double> > y);
 
+	double get_epochs();
+
 };
 
 Perceptron::Perceptron(double et, int ep) {
@@ -46,7 +48,13 @@ void Perceptron::fit(vector<vector<double> > X, vector<vector<double> > y) {
 		vector<vector<double> > output = activation(MatrixMul(X, weights));
 		vector<vector<double> > error = MatrixSub(y, output);
 		weights = MatrixAdd(weights, MatrixMul(MatrixMul(MatrixTranspose(X), error), eta));
-		errors.push_back(MatrixSum(MatrixNotEqual(output, y)));
+		double errorsNum = MatrixSum(MatrixNotEqual(output, y));
+		errors.push_back(errorsNum);
+		if (errorsNum == 0){
+			printf("Perceptron osiągnął zbieżność w epoce: %d\n", i + 1);
+			epochs = i + 1;
+			break;
+		}
 	}
 }
 
@@ -92,4 +100,8 @@ void Perceptron::addBias(vector<vector<double> > &X) {
 
 double Perceptron::score(vector<vector<double> > X, vector<vector<double> > y) {
 	return MatrixSum(MatrixEqual(predict(X), y)) / y.size();
+}
+
+double Perceptron::get_epochs() {
+	return epochs;
 }
